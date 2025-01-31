@@ -5,7 +5,6 @@ class AppThemeNotifier extends Notifier<ThemeMode> {
   @override
   ThemeMode build() {
     state = ThemeMode.light;
-    print('default theme mode: ${state.toString()}');
     return state;
   }
 
