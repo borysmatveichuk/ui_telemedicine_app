@@ -1,0 +1,14 @@
+{
+  "@@locale": "uk",
+  "howIsYourHealth": "Як ваше здоровʼя?",
+  "nDoctorsAvailable": "{count, plural, =0{0 доступних лікарів} =1{1 лікар доступний} =2{2 лікаря доступо} other{{count} лікарів доступно}}",
+  "@nDoctors": {
+    "description": "A plural message",
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "format": "compact"
+      }
+    }
+  }
+}
