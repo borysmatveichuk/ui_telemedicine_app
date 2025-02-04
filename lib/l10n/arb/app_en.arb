@@ -1,6 +1,7 @@
 {
   "@@locale": "en",
   "howIsYourHealth": "How is your health?",
+  "comingConsultations": "Coming consultations",
   "nDoctorsAvailable": "{count, plural, =0{no doctors available} =1{1 doctor available} other{{count} doctors available}}",
   "@nDoctors": {
     "description": "A plural message",
@@ -10,5 +11,8 @@
         "format": "compact"
       }
     }
-  }
+  },
+  "join": "Join",
+  "searchDoctor": "Search doctor or hospital",
+  "doctorsNearYou": "Doctors near you"
 }
