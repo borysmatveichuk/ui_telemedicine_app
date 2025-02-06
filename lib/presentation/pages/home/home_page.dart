@@ -21,8 +21,7 @@ class _HomePageState extends State<HomePage> {
     final i10n = AppLocalizations.of(context)!;
     final AppColorsExtension appColors =
         Theme.of(context).extension<AppColorsExtension>()!;
-    final size = MediaQuery.of(context).size.width;
-    print(size);
+    final size = MediaQuery.sizeOf(context).width;
 
     final goRouter = GoRouter.of(context);
     return Column(
@@ -215,74 +214,97 @@ class _HomePageState extends State<HomePage> {
               children: List.generate(10, (index) {
                 return Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8),
-                  child: Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.symmetric(vertical: 8),
-                        child: Card(
-                          elevation: 0,
-                          //color: Color.fromARGB(255, 0, 255, 0),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(32)),
-                          child: SizedBox(
-                            width: size / 2,
-                            height: 180,
-                            child: Column(
-                              children: [
-                                SizedBox(height: 16),
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(10),
-                                  child: Image.asset(
-                                    DoctorsImages.doctor1,
-                                    height: 50,
-                                    width: 50,
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                                SizedBox(height: 8),
-                                Text('Dr. Marta Miller', style: context.theme.textTheme.bodyLarge,),
-                                Text('Neurologist', style: context.theme.textTheme.bodyMedium,),
-                                SizedBox(height: 8),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Icon(Icons.star, size: 24, color: Color.fromRGBO(251,171,18,1)),
-                                    Text(' 5.0 '),
-                                    Text(' | '),
-                                    Icon(CupertinoIcons.chat_bubble, size: 20),
-                                    Text(' 1,4k'),
-                                  ],
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                      Positioned(
-                        top: 0,
-                        right: 0,
-                        child: IconButton.outlined(
-                          onPressed: () {},
-                          icon: Icon(
-                            //Icons.arrow_upward_outlined,
-                            CupertinoIcons.arrow_up_right,
-                            size: 30,
-                          ),
-                          style: context.theme.iconButtonTheme.style?.copyWith(
-                              iconColor: WidgetStateProperty.all(
-                                  context.theme.appColors2.accentTextColor),
-                              side: WidgetStateProperty.all(BorderSide(
-                                  width: 1.5,
-                                  color: context
-                                      .theme.appColors2.accentTextColor))),
-                        ),
-                      ),
-                    ],
+                  child: _DoctorItem(
+                    onTap: () {
+                      goRouter.push(AppRoutes.doctorDetails);
+                    },
                   ),
                 );
               }),
             ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _DoctorItem extends StatelessWidget {
+  const _DoctorItem({
+    super.key,
+    required this.onTap,
+  });
+
+  final void Function() onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        Padding(
+          padding: EdgeInsets.symmetric(vertical: 8),
+          child: Card(
+            elevation: 0,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(32),
+            ),
+            child: SizedBox(
+              height: 180,
+              child: Column(
+                children: [
+                  SizedBox(height: 16),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: Image.asset(
+                      DoctorsImages.doctor1,
+                      height: 50,
+                      width: 50,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  SizedBox(height: 8),
+                  Text(
+                    'Dr. Marta Miller',
+                    style: context.theme.textTheme.bodyLarge,
+                  ),
+                  Text(
+                    'Neurologist',
+                    style: context.theme.textTheme.bodyMedium,
+                  ),
+                  SizedBox(height: 8),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Icons.star,
+                          size: 24, color: Color.fromRGBO(251, 171, 18, 1)),
+                      Text(' 5.0 '),
+                      Text(' | '),
+                      Icon(CupertinoIcons.chat_bubble, size: 20),
+                      Text(' 1,4k'),
+                    ],
+                  )
+                ],
+              ),
+            ),
+          ),
+        ),
+        Positioned(
+          top: 0,
+          right: 0,
+          child: IconButton.outlined(
+            onPressed: onTap,
+            icon: Icon(
+              //Icons.arrow_upward_outlined,
+              CupertinoIcons.arrow_up_right,
+              size: 30,
+            ),
+            style: context.theme.iconButtonTheme.style?.copyWith(
+                iconColor: WidgetStateProperty.all(
+                    context.theme.appColors2.accentTextColor),
+                side: WidgetStateProperty.all(BorderSide(
+                    width: 1.5,
+                    color: context.theme.appColors2.accentTextColor))),
           ),
         ),
       ],
