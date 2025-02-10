@@ -24,207 +24,219 @@ class _HomePageState extends State<HomePage> {
     final size = MediaQuery.sizeOf(context).width;
 
     final goRouter = GoRouter.of(context);
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      spacing: 16,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Text(
-                i10n.howIsYourHealth,
-                style: context.textTheme.headlineLarge,
-              ),
+    return LayoutBuilder(
+      builder: (BuildContext context, BoxConstraints viewportConstraints) {
+        return SingleChildScrollView(
+          child: ConstrainedBox(
+            constraints: BoxConstraints(
+              minHeight: viewportConstraints.maxHeight,
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: IconButton.filledTonal(
-                  onPressed: () {},
-                  iconSize: 30,
-                  icon: Badge(
-                    smallSize: 9,
-                    backgroundColor: appColors.error,
-                    child: Icon(CupertinoIcons.bell),
-                  )),
-            )
-          ],
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: SearchAnchor(
-              builder: (BuildContext context, SearchController controller) {
-            return SearchBar(
-              elevation: WidgetStateProperty.all(0),
-              controller: controller,
-              onTap: () {
-                controller.openView();
-              },
-              onChanged: (_) {
-                controller.openView();
-              },
-              leading: const Icon(Icons.search),
-              hintText: i10n.searchDoctor,
-            );
-          }, suggestionsBuilder:
-                  (BuildContext context, SearchController controller) {
-            return List<ListTile>.generate(5, (int index) {
-              final String item = 'item $index';
-              return ListTile(
-                title: Text(item),
-                onTap: () {
-                  setState(() {
-                    controller.closeView(item);
-                  });
-                },
-              );
-            });
-          }),
-        ),
-        SizedBox(
-          height: 64,
-          child: ListView(
-            scrollDirection: Axis.horizontal,
-            padding: EdgeInsets.symmetric(horizontal: 16),
-            children: [
-              _CategoryItem(
-                categoryIconName: OrgansImages.lungs,
-                categoryName: 'Pulmonologist',
-                categoryInfo: i10n.nDoctorsAvailable(12),
-                onTap: () {
-                  goRouter.push(AppRoutes.doctorDetails);
-                },
-              ),
-              _CategoryItem(
-                categoryIconName: OrgansImages.brain,
-                categoryName: 'Neurologist',
-                categoryInfo: i10n.nDoctorsAvailable(1),
-                onTap: () {
-                  goRouter.push(AppRoutes.doctorDetails);
-                },
-              ),
-              _CategoryItem(
-                categoryIconName: OrgansImages.heart,
-                categoryName: 'Cardiologist',
-                categoryInfo: i10n.nDoctorsAvailable(10),
-                onTap: () {
-                  goRouter.push(AppRoutes.doctorDetails);
-                },
-              ),
-            ],
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Text(
-            i10n.comingConsultations,
-            style: context.textTheme.headlineMedium,
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Card(
-            elevation: 0,
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              spacing: 16,
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(16),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(10),
-                            // Adjust the radius as needed
-                            child: Image.asset(
-                              DoctorsImages.doctor1,
-                              height: 50,
-                              width: 50,
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Dr. Liza Smith',
-                              style: context.textTheme.bodyLarge,
-                            ),
-                            Text('Cardiologist',
-                                style: context.textTheme.bodyMedium),
-                          ],
-                        ),
-                      ],
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(16),
-                      child: FilledButton.icon(
-                        onPressed: () {},
-                        icon: const Icon(Icons.video_camera_back_outlined),
-                        label: Text(i10n.join),
-                        iconAlignment: IconAlignment.start,
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
-                  //spacing: 16,
-                  children: [
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: BorderContainer(
-                        child: TimeItem(
-                          icon: Icons.calendar_today_outlined,
-                          text: '16 September',
-                          color: context.theme.appColors2.accentColor,
-                        ),
+                      child: Text(
+                        i10n.howIsYourHealth,
+                        style: context.textTheme.headlineLarge,
                       ),
                     ),
-                    BorderContainer(
-                      child: TimeItem(
-                        icon: Icons.access_time_outlined,
-                        text: '10:00 - 10:45 AM',
-                        color: context.theme.appColors2.accentColor,
-                      ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: IconButton.filledTonal(
+                          onPressed: () {},
+                          iconSize: 30,
+                          icon: Badge(
+                            smallSize: 9,
+                            backgroundColor: appColors.error,
+                            child: Icon(CupertinoIcons.bell),
+                          )),
                     )
                   ],
                 ),
-                SizedBox(height: 16),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: SearchAnchor(builder:
+                      (BuildContext context, SearchController controller) {
+                    return SearchBar(
+                      elevation: WidgetStateProperty.all(0),
+                      controller: controller,
+                      onTap: () {
+                        controller.openView();
+                      },
+                      onChanged: (_) {
+                        controller.openView();
+                      },
+                      leading: const Icon(Icons.search),
+                      hintText: i10n.searchDoctor,
+                    );
+                  }, suggestionsBuilder:
+                      (BuildContext context, SearchController controller) {
+                    return List<ListTile>.generate(5, (int index) {
+                      final String item = 'item $index';
+                      return ListTile(
+                        title: Text(item),
+                        onTap: () {
+                          setState(() {
+                            controller.closeView(item);
+                          });
+                        },
+                      );
+                    });
+                  }),
+                ),
+                SizedBox(
+                  height: 64,
+                  child: ListView(
+                    scrollDirection: Axis.horizontal,
+                    padding: EdgeInsets.symmetric(horizontal: 16),
+                    children: [
+                      _CategoryItem(
+                        categoryIconName: OrgansImages.lungs,
+                        categoryName: 'Pulmonologist',
+                        categoryInfo: i10n.nDoctorsAvailable(12),
+                        onTap: () {
+                          goRouter.push(AppRoutes.doctorDetails);
+                        },
+                      ),
+                      _CategoryItem(
+                        categoryIconName: OrgansImages.brain,
+                        categoryName: 'Neurologist',
+                        categoryInfo: i10n.nDoctorsAvailable(1),
+                        onTap: () {
+                          goRouter.push(AppRoutes.doctorDetails);
+                        },
+                      ),
+                      _CategoryItem(
+                        categoryIconName: OrgansImages.heart,
+                        categoryName: 'Cardiologist',
+                        categoryInfo: i10n.nDoctorsAvailable(10),
+                        onTap: () {
+                          goRouter.push(AppRoutes.doctorDetails);
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Text(
+                    i10n.comingConsultations,
+                    style: context.textTheme.headlineMedium,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Card(
+                    elevation: 0,
+                    child: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(16),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(10),
+                                    // Adjust the radius as needed
+                                    child: Image.asset(
+                                      DoctorsImages.doctor1,
+                                      height: 50,
+                                      width: 50,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'Dr. Liza Smith',
+                                      style: context.textTheme.bodyLarge,
+                                    ),
+                                    Text('Cardiologist',
+                                        style: context.textTheme.bodyMedium),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(16),
+                              child: FilledButton.icon(
+                                onPressed: () {},
+                                icon: const Icon(
+                                    Icons.video_camera_back_outlined),
+                                label: Text(i10n.join),
+                                iconAlignment: IconAlignment.start,
+                              ),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          //spacing: 16,
+                          children: [
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 16),
+                              child: BorderContainer(
+                                child: TimeItem(
+                                  icon: Icons.calendar_today_outlined,
+                                  text: '16 September',
+                                  color: context.theme.appColors2.accentColor,
+                                ),
+                              ),
+                            ),
+                            BorderContainer(
+                              child: TimeItem(
+                                icon: Icons.access_time_outlined,
+                                text: '10:00 - 10:45 AM',
+                                color: context.theme.appColors2.accentColor,
+                              ),
+                            )
+                          ],
+                        ),
+                        SizedBox(height: 16),
+                      ],
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Text(
+                    i10n.doctorsNearYou,
+                    style: context.textTheme.headlineMedium,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  child: GridView.count(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    crossAxisCount: 2,
+                    children: List.generate(10, (index) {
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8),
+                        child: _DoctorItem(
+                          onTap: () {
+                            goRouter.push(AppRoutes.doctorDetails);
+                          },
+                        ),
+                      );
+                    }),
+                  ),
+                ),
               ],
             ),
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Text(
-            i10n.doctorsNearYou,
-            style: context.textTheme.headlineMedium,
-          ),
-        ),
-        SizedBox(
-          height: 380,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8),
-            child: GridView.count(
-              crossAxisCount: 2,
-              children: List.generate(10, (index) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8),
-                  child: _DoctorItem(
-                    onTap: () {
-                      goRouter.push(AppRoutes.doctorDetails);
-                    },
-                  ),
-                );
-              }),
-            ),
-          ),
-        ),
-      ],
+        );
+      },
     );
   }
 }
