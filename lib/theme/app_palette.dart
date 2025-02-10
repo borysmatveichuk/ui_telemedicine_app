@@ -7,6 +7,8 @@ abstract class AppPalette {
   static const Color textTitleColorLight = Color.fromRGBO(51, 102, 137, 1);
   static const Color textTitleColorDark = Color.fromRGBO(51, 102, 137, 1);
   static const Color textHintColorLight = Color.fromRGBO(157, 166, 171, 1);
+  static const Color textOnButtonColorLight = Colors.white;
+  static const Color textOnButtonColorDark = Colors.white;
   static const Color infoCardBackgroundColorLight = Color.fromRGBO(234, 243, 249, 1);
   static const Color buttonColorLight = Color.fromRGBO(52, 168, 195, 1);
   static const Color buttonColorDark = Color.fromRGBO(52, 168, 195, 1);

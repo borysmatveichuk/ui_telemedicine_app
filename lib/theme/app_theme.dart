@@ -66,6 +66,7 @@ class AppTheme {
   static final _lightAppColors2 = AppColorsExtension2(
     accentColor: AppPalette.buttonColorLight,
     accentTextColor: AppPalette.textTitleColorLight,
+    invertedTextColor: AppPalette.textOnButtonColorLight,
   );
 
   //
@@ -103,6 +104,7 @@ class AppTheme {
   static final _darkAppColors2 = AppColorsExtension2(
     accentColor: AppPalette.buttonColorDark,
     accentTextColor: AppPalette.textTitleColorDark,
+    invertedTextColor: AppPalette.textOnButtonColorDark,
   );
 }
 
