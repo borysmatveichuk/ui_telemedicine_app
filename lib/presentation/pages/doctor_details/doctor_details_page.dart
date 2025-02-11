@@ -6,7 +6,9 @@ import 'package:ui_telemedicine_app/utils/context_ext.dart';
 import 'package:ui_telemedicine_app/utils/images.dart';
 
 class DoctorDetailsPage extends StatelessWidget {
-  const DoctorDetailsPage({super.key});
+  const DoctorDetailsPage({super.key, required this.id});
+
+  final String id;
 
   @override
   Widget build(BuildContext context) {

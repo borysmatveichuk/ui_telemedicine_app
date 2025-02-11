@@ -11,7 +11,10 @@ abstract final class AppRoutes {
   static const String chat = '/chat';
   static const String profile = '/profile';
   static const String search = '/search_results';
-  static const String doctorDetails = '/doctor_details';
+  static const ({String name, String path}) doctorDetails = (
+    name: 'doctor_details',
+    path: '/doctor_details/:id',
+  );
 }
 
 // GoRouter configuration
@@ -66,9 +69,14 @@ final router = GoRouter(
       ],
     ),
     GoRoute(
-      path: AppRoutes.doctorDetails,
+      name: AppRoutes.doctorDetails.name,
+      path: AppRoutes.doctorDetails.path,
       builder: (context, state) {
-        return DoctorDetailsPage(key: state.pageKey);
+        final id = state.pathParameters['id']!;
+        return DoctorDetailsPage(
+          key: state.pageKey,
+          id: id,
+        );
       },
     ),
   ],

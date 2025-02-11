@@ -101,7 +101,7 @@ class _HomePageState extends State<HomePage> {
                         categoryName: 'Pulmonologist',
                         categoryInfo: i10n.nDoctorsAvailable(12),
                         onTap: () {
-                          goRouter.push(AppRoutes.doctorDetails);
+                          goRouter.push(AppRoutes.doctorDetails.path);
                         },
                       ),
                       _CategoryItem(
@@ -109,7 +109,7 @@ class _HomePageState extends State<HomePage> {
                         categoryName: 'Neurologist',
                         categoryInfo: i10n.nDoctorsAvailable(1),
                         onTap: () {
-                          goRouter.push(AppRoutes.doctorDetails);
+                          goRouter.push(AppRoutes.doctorDetails.path);
                         },
                       ),
                       _CategoryItem(
@@ -117,7 +117,7 @@ class _HomePageState extends State<HomePage> {
                         categoryName: 'Cardiologist',
                         categoryInfo: i10n.nDoctorsAvailable(10),
                         onTap: () {
-                          goRouter.push(AppRoutes.doctorDetails);
+                          goRouter.push(AppRoutes.doctorDetails.path);
                         },
                       ),
                     ],
@@ -225,7 +225,10 @@ class _HomePageState extends State<HomePage> {
                         padding: const EdgeInsets.symmetric(horizontal: 8),
                         child: _DoctorItem(
                           onTap: () {
-                            goRouter.push(AppRoutes.doctorDetails);
+                            goRouter.pushNamed(
+                              AppRoutes.doctorDetails.name,
+                              pathParameters: {'id': '$index'},
+                            );
                           },
                         ),
                       );
