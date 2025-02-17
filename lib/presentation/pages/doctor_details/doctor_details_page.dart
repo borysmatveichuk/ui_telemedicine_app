@@ -46,54 +46,79 @@ class DoctorDetailsPage extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          spacing: 8,
           children: [
             SizedBox(
-              height: 16,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Text(
-                'Dr. Liza Smith',
-                style: context.textTheme.headlineLarge,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Row(
-                spacing: 4,
+              height: 300,
+              child: Stack(
                 children: [
-                  FaIcon(FontAwesomeIcons.heartPulse, color: context.textTheme.bodyLarge?.color?.withAlpha(180), size: 16),
-                  Text(
-                    'Cardiologist',
-                    style: context.textTheme.bodyLarge,
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Row(
-                spacing: 2,
-                children: [
-                  FaIcon(FontAwesomeIcons.stethoscope, color: context.textTheme.bodyLarge?.color?.withAlpha(180), size: 16),
-                  Text(
-                    '5 years exp',
-                    style: context.textTheme.bodyLarge,
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Row(
-                spacing: 2,
-                children: [
-                  FaIcon(FontAwesomeIcons.star, color: context.textTheme.bodyLarge?.color?.withAlpha(180), size: 16),
-                  Text(
-                    '5.0',
-                    style: context.textTheme.bodyLarge,
+                  Positioned(
+                      top: 0,
+                      bottom: 0,
+                      right: 0,
+                      child: Image.asset(DoctorsImages.doctor1)),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    spacing: 8,
+                    children: [
+                      SizedBox(
+                        height: 16,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        child: Text(
+                          'Dr. Liza Smith',
+                          style: context.textTheme.headlineLarge,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        child: Row(
+                          spacing: 4,
+                          children: [
+                            FaIcon(FontAwesomeIcons.heartPulse,
+                                color: context.textTheme.bodyLarge?.color
+                                    ?.withAlpha(180),
+                                size: 16),
+                            Text(
+                              'Cardiologist',
+                              style: context.textTheme.bodyLarge,
+                            ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        child: Row(
+                          spacing: 2,
+                          children: [
+                            FaIcon(FontAwesomeIcons.stethoscope,
+                                color: context.textTheme.bodyLarge?.color
+                                    ?.withAlpha(180),
+                                size: 16),
+                            Text(
+                              '5 years exp',
+                              style: context.textTheme.bodyLarge,
+                            ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        child: Row(
+                          spacing: 2,
+                          children: [
+                            FaIcon(FontAwesomeIcons.star,
+                                color: context.textTheme.bodyLarge?.color
+                                    ?.withAlpha(180),
+                                size: 16),
+                            Text(
+                              '5.0',
+                              style: context.textTheme.bodyLarge,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
