@@ -5,10 +5,36 @@ import 'package:ui_telemedicine_app/theme/app_color_extension.dart';
 import 'package:ui_telemedicine_app/utils/context_ext.dart';
 import 'package:ui_telemedicine_app/utils/images.dart';
 
-class DoctorDetailsPage extends StatelessWidget {
+class DoctorDetailsPage extends StatefulWidget {
   const DoctorDetailsPage({super.key, required this.id});
 
   final String id;
+
+  @override
+  State<DoctorDetailsPage> createState() => _DoctorDetailsPageState();
+}
+
+class _DoctorDetailsPageState extends State<DoctorDetailsPage>
+    with TickerProviderStateMixin {
+  late final TabController _tabController;
+  int _selectedIndex = 1;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 2, vsync: this);
+    _tabController.addListener(() {
+      setState(() {
+        _selectedIndex = _tabController.index;
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -123,9 +149,83 @@ class DoctorDetailsPage extends StatelessWidget {
                 ],
               ),
             ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Container(
+                height: 50,
+                decoration: BoxDecoration(
+                  border: Border.all(color: appColors.primary, width: 2),
+                  borderRadius: BorderRadius.circular(32),
+                ),
+                child: TabBar(
+                    controller: _tabController,
+                    indicator: BoxDecoration(
+                      color: appColors.primary,
+                      borderRadius: BorderRadius.circular(32),
+                      border: Border.all(color: Colors.white, width: 1),
+                    ),
+                    dividerHeight: 0,
+                    indicatorSize: TabBarIndicatorSize.tab,
+                    tabs: [
+                      Tab(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            FaIcon(Icons.calendar_today_outlined),
+                            const SizedBox(width: 8),
+                            Text('Availability'),
+                          ],
+                        ),
+                      ),
+                      Tab(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            FaIcon(FontAwesomeIcons.newspaper),
+                            const SizedBox(width: 8),
+                            Text('Information'),
+                          ],
+                        ),
+                      ),
+                    ]),
+              ),
+            ),
+            SizedBox(
+              height: 600,
+              child: TabBarView(
+                controller: _tabController,
+                children: [
+                  SampleWidget(label: 'Information', color: Colors.white24),
+                  SampleWidget(label: 'Availability', color: Colors.white24),
+                ],
+              ),
+            ),
           ],
         ),
       ),
+    );
+  }
+}
+
+class SampleWidget extends StatelessWidget {
+  const SampleWidget({
+    super.key,
+    required this.label,
+    required this.color,
+  });
+
+  final String label;
+  final Color color;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      alignment: Alignment.center,
+      decoration: BoxDecoration(
+        color: color,
+        borderRadius: const BorderRadius.vertical(top: Radius.circular(10)),
+      ),
+      child: Text(label),
     );
   }
 }
