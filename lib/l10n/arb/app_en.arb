@@ -14,5 +14,6 @@
   },
   "join": "Join",
   "searchDoctor": "Search doctor or hospital",
-  "doctorsNearYou": "Doctors near you"
+  "doctorsNearYou": "Doctors near you",
+  "bookAppointment": "Book appointment"
 }

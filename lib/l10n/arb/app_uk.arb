@@ -14,5 +14,6 @@
   },
   "join": "Приєднатися",
   "searchDoctor": "Шукати лікаря або лікарню",
-  "doctorsNearYou": "Лікарі поблизу вас"
+  "doctorsNearYou": "Лікарі поблизу вас",
+  "bookAppointment": "Записатися на прийом"
 }
