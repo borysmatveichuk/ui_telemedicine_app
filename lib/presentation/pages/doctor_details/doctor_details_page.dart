@@ -6,8 +6,10 @@ import 'package:flutter_lorem/flutter_lorem.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:ui_telemedicine_app/theme/app_color_extension.dart';
+import 'package:ui_telemedicine_app/theme/app_theme.dart';
 import 'package:ui_telemedicine_app/utils/context_ext.dart';
 import 'package:ui_telemedicine_app/utils/images.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DoctorDetailsPage extends StatefulWidget {
   const DoctorDetailsPage({super.key, required this.id});
@@ -45,6 +47,7 @@ class _DoctorDetailsPageState extends State<DoctorDetailsPage>
   Widget build(BuildContext context) {
     final AppColorsExtension appColors =
         Theme.of(context).extension<AppColorsExtension>()!;
+    final i10n = AppLocalizations.of(context)!;
 
     return Scaffold(
       extendBody: true,
@@ -66,11 +69,36 @@ class _DoctorDetailsPageState extends State<DoctorDetailsPage>
         child: FilledButton(
           onPressed: () {},
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(16),
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Text('Book Appointment'),
-                Text('>>>'),
+                
+                Spacer(),
+                Text(i10n.bookAppointment,
+                    style: context.textTheme.headlineSmall?.copyWith(
+                        color: context.theme.appColors2.invertedTextColor)),
+                SizedBox(width: 32),
+                Row(
+                  spacing: -14,
+                  children: [
+                    Icon(
+                      CupertinoIcons.chevron_right,
+                      size: 24,
+                      color: Color.fromARGB(128, 255, 255, 255),
+                    ),
+                    Icon(
+                      CupertinoIcons.chevron_right,
+                      size: 24,
+                      color: Color.fromARGB(200, 255, 255, 255),
+                    ),
+                    Icon(
+                      CupertinoIcons.chevron_right,
+                      size: 24,
+                      color: Color.fromARGB(255, 255, 255, 255),
+                    ),
+                  ],
+                ),
               ],
             ),
           ),
@@ -266,11 +294,6 @@ class BookingWidget extends StatefulWidget {
 class _BookingWidgetState extends State<BookingWidget>
     with AutomaticKeepAliveClientMixin {
   int? _value = 0;
-  @override
-  void initState() {
-    super.initState();
-    print('INIT STATE _BookingWidgetState');
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -323,7 +346,310 @@ class _BookingWidgetState extends State<BookingWidget>
             },
           ),
         ),
+        _BookingSlotsWidgetState(),
       ],
+    );
+  }
+
+  @override
+  bool get wantKeepAlive => true;
+}
+
+class _BookingSlotsWidgetState extends StatefulWidget {
+  const _BookingSlotsWidgetState({super.key});
+
+  @override
+  State<_BookingSlotsWidgetState> createState() =>
+      _BookingSlotsWidgetStateState();
+}
+
+class _BookingSlotsWidgetStateState extends State<_BookingSlotsWidgetState>
+    with AutomaticKeepAliveClientMixin {
+  @override
+  Widget build(BuildContext context) {
+    super.build(context);
+    return DefaultTabController(
+      length: 4,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            SizedBox(
+              height: 40,
+              child: TabBar(
+                dividerHeight: 0,
+                indicatorSize: TabBarIndicatorSize.tab,
+                tabs: [
+                  Tab(
+                    text: "Morning",
+                  ),
+                  Tab(
+                    text: "Afternoon",
+                  ),
+                  Tab(
+                    text: "Evening",
+                  ),
+                  Tab(
+                    text: 'Night',
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(16),
+              child: SizedBox(
+                height: 300,
+                child: TabBarView(
+                  children: [
+                    Center(
+                      child: Wrap(
+                        runSpacing: 16,
+                        spacing: 16,
+                        children: [
+                          ChoiceChip(
+                            label: Text("08:00 AM"),
+                            selected: false,
+                            onSelected: (value) => {},
+                            showCheckmark: false,
+                          ),
+                          ChoiceChip(
+                            label: Text("08:30 AM"),
+                            selected: false,
+                            onSelected: (value) => {},
+                            showCheckmark: false,
+                          ),
+                          ChoiceChip(
+                            label: Text("09:00 AM"),
+                            selected: false,
+                            onSelected: (value) => {},
+                            showCheckmark: false,
+                          ),
+                          ChoiceChip(
+                            label: Text("09:30 AM"),
+                            selected: false,
+                            onSelected: (value) => {},
+                            showCheckmark: false,
+                          ),
+                          ChoiceChip(
+                            label: Text("10:00 AM"),
+                            selected: false,
+                            onSelected: (value) => {},
+                            showCheckmark: false,
+                          ),
+                          ChoiceChip(
+                            label: Text("10:30 AM"),
+                            selected: false,
+                            onSelected: (value) => {},
+                            showCheckmark: false,
+                          ),
+                          ChoiceChip(
+                            label: Text("11:00 AM"),
+                            selected: false,
+                            onSelected: (value) => {},
+                            showCheckmark: false,
+                          ),
+                          ChoiceChip(
+                            label: Text("11:30 AM"),
+                            selected: false,
+                            onSelected: (value) => {},
+                            showCheckmark: false,
+                          ),
+                        ],
+                      ),
+                    ),
+                    Center(
+                      child: Wrap(
+                        runSpacing: 16,
+                        spacing: 16,
+                        children: [
+                          ChoiceChip(
+                            label: Text("12:00 PM"),
+                            selected: false,
+                            onSelected: (value) => {},
+                            showCheckmark: false,
+                          ),
+                          ChoiceChip(
+                            label: Text("12:30 PM"),
+                            selected: false,
+                            onSelected: (value) => {},
+                            showCheckmark: false,
+                          ),
+                          ChoiceChip(
+                            label: Text("01:00 PM"),
+                            selected: false,
+                            onSelected: (value) => {},
+                            showCheckmark: false,
+                          ),
+                          ChoiceChip(
+                            label: Text("01:30 PM"),
+                            selected: false,
+                            onSelected: (value) => {},
+                            showCheckmark: false,
+                          ),
+                          ChoiceChip(
+                            label: Text("02:00 PM"),
+                            selected: false,
+                            onSelected: (value) => {},
+                            showCheckmark: false,
+                          ),
+                          ChoiceChip(
+                            label: Text("02:30 PM"),
+                            selected: false,
+                            onSelected: (value) => {},
+                            showCheckmark: false,
+                          ),
+                          ChoiceChip(
+                            label: Text("03:00 PM"),
+                            selected: false,
+                            onSelected: (value) => {},
+                            showCheckmark: false,
+                          ),
+                          ChoiceChip(
+                            label: Text("03:30 PM"),
+                            selected: false,
+                            onSelected: (value) => {},
+                            showCheckmark: false,
+                          ),
+                          ChoiceChip(
+                            label: Text("04:00 PM"),
+                            selected: false,
+                            onSelected: (value) => {},
+                            showCheckmark: false,
+                          ),
+                        ],
+                      ),
+                    ),
+                    Center(
+                      child: Wrap(
+                        runSpacing: 16,
+                        spacing: 16,
+                        children: [
+                          ChoiceChip(
+                            label: Text("04:30 PM"),
+                            selected: false,
+                            onSelected: (value) => {},
+                            showCheckmark: false,
+                          ),
+                          ChoiceChip(
+                            label: Text("05:00 PM"),
+                            selected: false,
+                            onSelected: (value) => {},
+                            showCheckmark: false,
+                          ),
+                          ChoiceChip(
+                            label: Text("05:30 PM"),
+                            selected: false,
+                            onSelected: (value) => {},
+                            showCheckmark: false,
+                          ),
+                          ChoiceChip(
+                            label: Text("06:00 PM"),
+                            selected: false,
+                            onSelected: (value) => {},
+                            showCheckmark: false,
+                          ),
+                          ChoiceChip(
+                            label: Text("06:30 PM"),
+                            selected: false,
+                            onSelected: (value) => {},
+                            showCheckmark: false,
+                          ),
+                          ChoiceChip(
+                            label: Text("07:00 PM"),
+                            selected: false,
+                            onSelected: (value) => {},
+                            showCheckmark: false,
+                          ),
+                          ChoiceChip(
+                            label: Text("07:30 PM"),
+                            selected: false,
+                            onSelected: (value) => {},
+                            showCheckmark: false,
+                          ),
+                          ChoiceChip(
+                            label: Text("08:00 PM"),
+                            selected: false,
+                            onSelected: (value) => {},
+                            showCheckmark: false,
+                          ),
+                          ChoiceChip(
+                            label: Text("08:30 PM"),
+                            selected: false,
+                            onSelected: (value) => {},
+                            showCheckmark: false,
+                          ),
+                        ],
+                      ),
+                    ),
+                    Center(
+                      child: Wrap(
+                        runSpacing: 16,
+                        spacing: 16,
+                        children: [
+                          ChoiceChip(
+                            label: Text("09:00 PM"),
+                            selected: false,
+                            onSelected: (value) => {},
+                            showCheckmark: false,
+                          ),
+                          ChoiceChip(
+                            label: Text("09:30 PM"),
+                            selected: false,
+                            onSelected: (value) => {},
+                            showCheckmark: false,
+                          ),
+                          ChoiceChip(
+                            label: Text("10:00 PM"),
+                            selected: false,
+                            onSelected: (value) => {},
+                            showCheckmark: false,
+                          ),
+                          ChoiceChip(
+                            label: Text("10:30 PM"),
+                            selected: false,
+                            onSelected: (value) => {},
+                            showCheckmark: false,
+                          ),
+                          ChoiceChip(
+                            label: Text("11:00 PM"),
+                            selected: false,
+                            onSelected: (value) => {},
+                            showCheckmark: false,
+                          ),
+                          ChoiceChip(
+                            label: Text("11:30 PM"),
+                            selected: false,
+                            onSelected: (value) => {},
+                            showCheckmark: false,
+                          ),
+                          ChoiceChip(
+                            label: Text("12:00 AM"),
+                            selected: false,
+                            onSelected: (value) => {},
+                            showCheckmark: false,
+                          ),
+                          ChoiceChip(
+                            label: Text("00:30 AM"),
+                            selected: false,
+                            onSelected: (value) => {},
+                            showCheckmark: false,
+                          ),
+                          ChoiceChip(
+                            label: Text("01:00 AM"),
+                            selected: false,
+                            onSelected: (value) => {},
+                            showCheckmark: false,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 
