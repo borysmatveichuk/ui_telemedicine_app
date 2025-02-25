@@ -15,5 +15,8 @@
   "join": "Join",
   "searchDoctor": "Search doctor or hospital",
   "doctorsNearYou": "Doctors near you",
-  "bookAppointment": "Book appointment"
+  "bookAppointment": "Book appointment",
+  "cardiologist": "Cardiologist",
+  "pulmonologist": "Pulmonologist",
+  "neurologist": "Neurologist"
 }

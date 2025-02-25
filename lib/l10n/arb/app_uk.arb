@@ -15,5 +15,8 @@
   "join": "Приєднатися",
   "searchDoctor": "Шукати лікаря або лікарню",
   "doctorsNearYou": "Лікарі поблизу вас",
-  "bookAppointment": "Записатися на прийом"
+  "bookAppointment": "Записатися на прийом",
+  "cardiologist": "Кардіолог",
+  "pulmonologist": "Пульмонолог",
+  "neurologist": "Невролог"
 }
