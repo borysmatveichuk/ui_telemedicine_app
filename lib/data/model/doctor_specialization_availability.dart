@@ -1,20 +1,5 @@
-enum DoctorSpecialization {
-  generalPhysician,
-  cardiologist,
-  dermatologist,
-  endocrinologist,
-  gastroenterologist,
-  gynecologist,
-  neurologist,
-  oncologist,
-  ophthalmologist,
-  orthopedist,
-  pediatrician,
-  psychiatrist,
-  pulmonologist,
-  radiologist,
-  urologist,
-}
+import 'package:ui_telemedicine_app/data/model/doctor_specialization.dart';
+
 
 class DoctorSpecializationAvailability {
   final DoctorSpecialization specialization;
