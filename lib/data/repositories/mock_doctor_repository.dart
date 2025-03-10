@@ -13,9 +13,9 @@ class MockDoctorRepository implements DoctorRepository {
       fetchSpecializationsAvailability() async {
     await Future.delayed(const Duration(seconds: 2));
     try {
-      return RepositoryResult.left(MockData._specializationAvailability);
+      return RepositoryResult.right(MockData._specializationAvailability);
     } catch (e) {
-      return RepositoryResult.right(AppException('Error: ${e.toString()}'));
+      return RepositoryResult.left(AppException('Error: ${e.toString()}'));
     }
   }
 
@@ -23,9 +23,9 @@ class MockDoctorRepository implements DoctorRepository {
   Future<RepositoryResult<List<Doctor>>> fetchDoctors() async {
     return await Future.delayed(const Duration(seconds: 2), () {
       try {
-        return RepositoryResult.left(MockData._doctors.values.toList());
+        return RepositoryResult.right(MockData._doctors.values.toList());
       } catch (e) {
-        return RepositoryResult.right(AppException('Error: ${e.toString()}'));
+        return RepositoryResult.left(AppException('Error: ${e.toString()}'));
       }
     });
   }
@@ -36,13 +36,13 @@ class MockDoctorRepository implements DoctorRepository {
       try {
         final doctor = MockData._doctors[id];
         if (doctor != null) {
-          return RepositoryResult.left(doctor);
+          return RepositoryResult.right(doctor);
         } else {
-          return RepositoryResult.right(
+          return RepositoryResult.left(
               AppException('Doctor with id $id not found'));
         }
       } catch (e) {
-        return RepositoryResult.right(AppException('Error: ${e.toString()}'));
+        return RepositoryResult.left(AppException('Error: ${e.toString()}'));
       }
     });
   }

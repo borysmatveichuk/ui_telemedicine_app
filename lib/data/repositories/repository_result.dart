@@ -13,4 +13,4 @@ class AppException implements Exception {
   }
 }
 
-typedef RepositoryResult<T> = Either<T, AppException>;
+typedef RepositoryResult<T> = Either<AppException, T>;
