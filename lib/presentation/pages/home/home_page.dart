@@ -45,29 +45,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 spacing: 16,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
-                        child: Text(
-                          i10n.howIsYourHealth,
-                          style: context.textTheme.headlineLarge,
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
-                        child: IconButton.filledTonal(
-                            onPressed: () {},
-                            iconSize: 30,
-                            icon: Badge(
-                              smallSize: 9,
-                              backgroundColor: appColors.error,
-                              child: Icon(CupertinoIcons.bell),
-                            )),
-                      )
-                    ],
-                  ),
+                  _Header(),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: SearchAnchor(builder:
@@ -106,11 +84,16 @@ class _HomePageState extends ConsumerState<HomePage> {
                       padding: EdgeInsets.symmetric(horizontal: 16),
                       itemCount: data.doctorSpecializationAvailability.length,
                       itemBuilder: (BuildContext context, int index) {
-                        final asset = data.doctorSpecializationAvailability[index].specialization.doctorAssetName(context);
+                        final asset = data
+                            .doctorSpecializationAvailability[index]
+                            .specialization
+                            .doctorAssetName(context);
                         return _CategoryItem(
                           categoryIconName: asset.image,
                           categoryName: asset.localization,
-                          categoryInfo: i10n.nDoctorsAvailable(12),
+                          categoryInfo: i10n.nDoctorsAvailable(data
+                              .doctorSpecializationAvailability[index]
+                              .availableDoctors),
                           onTap: () {
                             goRouter.push(AppRoutes.doctorDetails.path);
                           },
@@ -237,6 +220,41 @@ class _HomePageState extends ConsumerState<HomePage> {
           ),
         );
       },
+    );
+  }
+}
+
+/// Header with notifications
+class _Header extends StatelessWidget {
+  const _Header();
+
+  @override
+  Widget build(BuildContext context) {
+    final i10n = AppLocalizations.of(context)!;
+    final AppColorsExtension appColors =
+        Theme.of(context).extension<AppColorsExtension>()!;
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Text(
+            i10n.howIsYourHealth,
+            style: context.textTheme.headlineLarge,
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: IconButton.filledTonal(
+              onPressed: () {},
+              iconSize: 30,
+              icon: Badge(
+                smallSize: 9,
+                backgroundColor: appColors.error,
+                child: Icon(CupertinoIcons.bell),
+              )),
+        )
+      ],
     );
   }
 }
