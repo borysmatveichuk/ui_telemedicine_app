@@ -18,5 +18,17 @@
   "bookAppointment": "Записатися на прийом",
   "cardiologist": "Кардіолог",
   "pulmonologist": "Пульмонолог",
-  "neurologist": "Невролог"
+  "neurologist": "Невролог",
+  "generalPhysician": "Лікар загальної практики",
+  "dermatologist": "Дерматолог",
+  "endocrinologist": "Ендокринолог",
+  "gastroenterologist": "Гастроентеролог",
+  "gynecologist": "Гінеколог",
+  "oncologist": "Онколог",
+  "ophthalmologist": "Офтальмолог",
+  "orthopedist": "Ортопед",
+  "pediatrician": "Педіатр",
+  "psychiatrist": "Психіатр",
+  "radiologist": "Радіолог",
+  "urologist": "Уролог"
 }

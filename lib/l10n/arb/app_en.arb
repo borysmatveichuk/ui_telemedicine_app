@@ -18,5 +18,17 @@
   "bookAppointment": "Book appointment",
   "cardiologist": "Cardiologist",
   "pulmonologist": "Pulmonologist",
-  "neurologist": "Neurologist"
+  "neurologist": "Neurologist",
+  "generalPhysician": "General Physician",
+  "dermatologist": "Dermatologist",
+  "endocrinologist": "Endocrinologist",
+  "gastroenterologist": "Gastroenterologist",
+  "gynecologist": "Gynecologist",
+  "oncologist": "Oncologist",
+  "ophthalmologist": "Ophthalmologist",
+  "orthopedist": "Orthopedist",
+  "pediatrician": "Pediatrician",
+  "psychiatrist": "Psychiatrist",
+  "radiologist": "Radiologist",
+  "urologist": "Urologist"
 }
