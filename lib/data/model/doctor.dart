@@ -15,7 +15,7 @@ class Doctor {
   final Gender gender;
   final String photo;
 
-  Doctor( {
+  const Doctor( {
     required this.id,
     required this.firstName,
     required this.lastName,
