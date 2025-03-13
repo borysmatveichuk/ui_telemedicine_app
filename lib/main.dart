@@ -19,6 +19,7 @@ class MyApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final appThemeMode = ref.watch(appThemeProvider);
     return MaterialApp.router(
+      debugShowCheckedModeBanner: false,
       title: 'Telemedicine App',
       theme: AppTheme.light,
       themeMode: appThemeMode,
