@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 import 'package:ui_telemedicine_app/data/model/doctor.dart';
 import 'package:ui_telemedicine_app/data/model/doctor_specialization.dart';
 import 'package:ui_telemedicine_app/providers/doctor_data_provider.dart';
@@ -278,7 +279,6 @@ class _DoctorItem extends StatelessWidget {
   final Doctor doctor;
   final void Function() onTap;
 
-
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -307,23 +307,31 @@ class _DoctorItem extends StatelessWidget {
                   ),
                   SizedBox(height: 8),
                   Text(
-                    'Dr. ${doctor.firstName} ${doctor.lastName}',
-                    style: context.theme.textTheme.bodyLarge,
+                    '${doctor.firstName} ${doctor.lastName}',
+                    style: context.theme.textTheme.bodyLarge?.copyWith(
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
-                  // Text(
-                  //   doctor.specialization.localizedName(context),
-                  //   style: context.theme.textTheme.bodyMedium,
-                  // ),
+                  Text(
+                    doctor.specialization.doctorAssetName(context).localization,
+                    style: context.theme.textTheme.bodyMedium,
+                  ),
                   SizedBox(height: 8),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Icon(Icons.star,
                           size: 24, color: Color.fromRGBO(251, 171, 18, 1)),
-                      Text(' 5.0 '),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 4),
+                        child: Text('${doctor.rating}'),
+                      ),
                       Text(' | '),
-                      Icon(CupertinoIcons.chat_bubble, size: 20),
-                      Text(' 1,4k'),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 4),
+                        child: Icon(CupertinoIcons.chat_bubble, size: 20),
+                      ),
+                      Text(NumberFormat.compact().format(doctor.numberOfReviews)),
                     ],
                   )
                 ],
@@ -337,7 +345,6 @@ class _DoctorItem extends StatelessWidget {
           child: IconButton.outlined(
             onPressed: onTap,
             icon: Icon(
-              //Icons.arrow_upward_outlined,
               CupertinoIcons.arrow_up_right,
               size: 30,
             ),
