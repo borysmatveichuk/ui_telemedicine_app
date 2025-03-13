@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:ui_telemedicine_app/data/model/doctor.dart';
 import 'package:ui_telemedicine_app/data/model/doctor_specialization.dart';
 import 'package:ui_telemedicine_app/providers/doctor_data_provider.dart';
 import 'package:ui_telemedicine_app/router.dart';
@@ -195,14 +196,23 @@ class _HomePageState extends ConsumerState<HomePage> {
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8),
-                    child: GridView.count(
+                    child: GridView.builder(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
-                      crossAxisCount: 2,
-                      children: List.generate(10, (index) {
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        childAspectRatio: 0.9, // adjust as needed
+                        crossAxisSpacing: 8,
+                        mainAxisSpacing: 8,
+                      ),
+                      itemCount: data.doctors.length,
+                      itemBuilder: (context, index) {
+                        final doctor = data.doctors[index];
                         return Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 8),
                           child: _DoctorItem(
+                            doctor: doctor,
                             onTap: () {
                               goRouter.pushNamed(
                                 AppRoutes.doctorDetails.name,
@@ -211,7 +221,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                             },
                           ),
                         );
-                      }),
+                      },
                     ),
                   ),
                 ],
@@ -261,11 +271,13 @@ class _Header extends StatelessWidget {
 
 class _DoctorItem extends StatelessWidget {
   const _DoctorItem({
-    super.key,
+    required this.doctor,
     required this.onTap,
   });
 
+  final Doctor doctor;
   final void Function() onTap;
+
 
   @override
   Widget build(BuildContext context) {
@@ -287,7 +299,7 @@ class _DoctorItem extends StatelessWidget {
                   ClipRRect(
                     borderRadius: BorderRadius.circular(10),
                     child: Image.asset(
-                      DoctorsImages.doctor1,
+                      doctor.photo,
                       height: 50,
                       width: 50,
                       fit: BoxFit.cover,
@@ -295,13 +307,13 @@ class _DoctorItem extends StatelessWidget {
                   ),
                   SizedBox(height: 8),
                   Text(
-                    'Dr. Marta Miller',
+                    'Dr. ${doctor.firstName} ${doctor.lastName}',
                     style: context.theme.textTheme.bodyLarge,
                   ),
-                  Text(
-                    'Neurologist',
-                    style: context.theme.textTheme.bodyMedium,
-                  ),
+                  // Text(
+                  //   doctor.specialization.localizedName(context),
+                  //   style: context.theme.textTheme.bodyMedium,
+                  // ),
                   SizedBox(height: 8),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
