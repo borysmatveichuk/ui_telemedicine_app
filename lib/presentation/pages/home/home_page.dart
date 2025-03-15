@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:ui_telemedicine_app/data/model/doctor.dart';
 import 'package:ui_telemedicine_app/data/model/doctor_specialization.dart';
+import 'package:ui_telemedicine_app/data/model/doctor_specialization_availability.dart';
 import 'package:ui_telemedicine_app/providers/doctor_data_provider.dart';
 import 'package:ui_telemedicine_app/router.dart';
 import 'package:ui_telemedicine_app/theme/app_color_extension.dart';
@@ -26,10 +27,8 @@ class _HomePageState extends ConsumerState<HomePage> {
     final i10n = AppLocalizations.of(context)!;
     final AppColorsExtension appColors =
         Theme.of(context).extension<AppColorsExtension>()!;
-    final size = MediaQuery.sizeOf(context).width;
     final doctorsData = ref.watch(doctorsDataNotifierProvider);
 
-    final goRouter = GoRouter.of(context);
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints viewportConstraints) {
         return SingleChildScrollView(
@@ -50,57 +49,12 @@ class _HomePageState extends ConsumerState<HomePage> {
                   _Header(),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: SearchAnchor(builder:
-                        (BuildContext context, SearchController controller) {
-                      return SearchBar(
-                        elevation: WidgetStateProperty.all(0),
-                        controller: controller,
-                        onTap: () {
-                          controller.openView();
-                        },
-                        onChanged: (_) {
-                          controller.openView();
-                        },
-                        leading: const Icon(Icons.search),
-                        hintText: i10n.searchDoctor,
-                      );
-                    }, suggestionsBuilder:
-                        (BuildContext context, SearchController controller) {
-                      return List<ListTile>.generate(5, (int index) {
-                        final String item = 'item $index';
-                        return ListTile(
-                          title: Text(item),
-                          onTap: () {
-                            setState(() {
-                              controller.closeView(item);
-                            });
-                          },
-                        );
-                      });
-                    }),
+                    child: _SearchWidget(),
                   ),
                   SizedBox(
                     height: 64,
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      padding: EdgeInsets.symmetric(horizontal: 16),
-                      itemCount: data.doctorSpecializationAvailability.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        final asset = data
-                            .doctorSpecializationAvailability[index]
-                            .specialization
-                            .doctorAssetName(context);
-                        return _CategoryItem(
-                          categoryIconName: asset.image,
-                          categoryName: asset.localization,
-                          categoryInfo: i10n.nDoctorsAvailable(data
-                              .doctorSpecializationAvailability[index]
-                              .availableDoctors),
-                          onTap: () {
-                            goRouter.push(AppRoutes.doctorDetails.path);
-                          },
-                        );
-                      },
+                    child: _DoctorSpecializationList(
+                      specializations: data.doctorSpecializationAvailability,
                     ),
                   ),
                   Padding(
@@ -112,81 +66,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: Card(
-                      elevation: 0,
-                      child: Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Row(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.all(16),
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(10),
-                                      // Adjust the radius as needed
-                                      child: Image.asset(
-                                        DoctorsImages.doctor1,
-                                        height: 50,
-                                        width: 50,
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
-                                  ),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'Dr. Liza Smith',
-                                        style: context.textTheme.bodyLarge,
-                                      ),
-                                      Text('Cardiologist',
-                                          style: context.textTheme.bodyMedium),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(16),
-                                child: FilledButton.icon(
-                                  onPressed: () {},
-                                  icon: const Icon(
-                                      Icons.video_camera_back_outlined),
-                                  label: Text(i10n.join),
-                                  iconAlignment: IconAlignment.start,
-                                ),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            //spacing: 16,
-                            children: [
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 16),
-                                child: BorderContainer(
-                                  child: TimeItem(
-                                    icon: Icons.calendar_today_outlined,
-                                    text: '16 September',
-                                    color: context.theme.appColors2.accentColor,
-                                  ),
-                                ),
-                              ),
-                              BorderContainer(
-                                child: TimeItem(
-                                  icon: Icons.access_time_outlined,
-                                  text: '10:00 - 10:45 AM',
-                                  color: context.theme.appColors2.accentColor,
-                                ),
-                              )
-                            ],
-                          ),
-                          SizedBox(height: 16),
-                        ],
-                      ),
-                    ),
+                    child: _ComingConsultationWidget(),
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -197,38 +77,165 @@ class _HomePageState extends ConsumerState<HomePage> {
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8),
-                    child: GridView.builder(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        childAspectRatio: 0.9, // adjust as needed
-                        crossAxisSpacing: 8,
-                        mainAxisSpacing: 8,
-                      ),
-                      itemCount: data.doctors.length,
-                      itemBuilder: (context, index) {
-                        final doctor = data.doctors[index];
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8),
-                          child: _DoctorItem(
-                            doctor: doctor,
-                            onTap: () {
-                              goRouter.pushNamed(
-                                AppRoutes.doctorDetails.name,
-                                pathParameters: {'id': '$index'},
-                              );
-                            },
-                          ),
-                        );
-                      },
+                    child: _DoctorsListWidget(
+                      doctors: data.doctors,
                     ),
                   ),
                 ],
               ),
             ),
           ),
+        );
+      },
+    );
+  }
+}
+
+class _DoctorsListWidget extends StatelessWidget {
+  const _DoctorsListWidget({
+    required this.doctors,
+  });
+
+  final List<Doctor> doctors;
+
+  @override
+  Widget build(BuildContext context) {
+    final goRouter = GoRouter.of(context);
+    return GridView.builder(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        childAspectRatio: 0.9, // adjust as needed
+        crossAxisSpacing: 8,
+        mainAxisSpacing: 8,
+      ),
+      itemCount: doctors.length,
+      itemBuilder: (context, index) {
+        final doctor = doctors[index];
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8),
+          child: _DoctorItem(
+            doctor: doctor,
+            onTap: () {
+              goRouter.pushNamed(
+                AppRoutes.doctorDetails.name,
+                pathParameters: {'id': '$index'},
+              );
+            },
+          ),
+        );
+      },
+    );
+  }
+}
+
+// Currently it's only a stub
+class _ComingConsultationWidget extends StatelessWidget {
+  const _ComingConsultationWidget();
+
+  @override
+  Widget build(BuildContext context) {
+    final i10n = AppLocalizations.of(context)!;
+    return Card(
+      elevation: 0,
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      // Adjust the radius as needed
+                      child: Image.asset(
+                        DoctorsImages.doctor1,
+                        height: 50,
+                        width: 50,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Dr. Liza Smith',
+                        style: context.textTheme.bodyLarge,
+                      ),
+                      Text('Cardiologist', style: context.textTheme.bodyMedium),
+                    ],
+                  ),
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.all(16),
+                child: FilledButton.icon(
+                  onPressed: () {},
+                  icon: const Icon(Icons.video_camera_back_outlined),
+                  label: Text(i10n.join),
+                  iconAlignment: IconAlignment.start,
+                ),
+              ),
+            ],
+          ),
+          Row(
+            //spacing: 16,
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: _BorderContainer(
+                  child: TimeItem(
+                    icon: Icons.calendar_today_outlined,
+                    text: '16 September',
+                    color: context.theme.appColors2.accentColor,
+                  ),
+                ),
+              ),
+              _BorderContainer(
+                child: TimeItem(
+                  icon: Icons.access_time_outlined,
+                  text: '10:00 - 10:45 AM',
+                  color: context.theme.appColors2.accentColor,
+                ),
+              )
+            ],
+          ),
+          SizedBox(height: 16),
+        ],
+      ),
+    );
+  }
+}
+
+class _DoctorSpecializationList extends StatelessWidget {
+  const _DoctorSpecializationList({
+    required this.specializations,
+  });
+
+  final List<DoctorSpecializationAvailability> specializations;
+
+  @override
+  Widget build(BuildContext context) {
+    final i10n = AppLocalizations.of(context)!;
+    return ListView.builder(
+      scrollDirection: Axis.horizontal,
+      padding: EdgeInsets.symmetric(horizontal: 16),
+      itemCount: specializations.length,
+      itemBuilder: (BuildContext context, int index) {
+        final asset =
+            specializations[index].specialization.doctorAssetName(context);
+        return _CategoryItem(
+          categoryIconName: asset.image,
+          categoryName: asset.localization,
+          categoryInfo:
+              i10n.nDoctorsAvailable(specializations[index].availableDoctors),
+          onTap: () {
+            // navigate to screen with filtered doctors
+          },
         );
       },
     );
@@ -331,7 +338,8 @@ class _DoctorItem extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(horizontal: 4),
                         child: Icon(CupertinoIcons.chat_bubble, size: 20),
                       ),
-                      Text(NumberFormat.compact().format(doctor.numberOfReviews)),
+                      Text(NumberFormat.compact()
+                          .format(doctor.numberOfReviews)),
                     ],
                   )
                 ],
@@ -458,8 +466,42 @@ class _CategoryItem extends StatelessWidget {
   }
 }
 
-class BorderContainer extends StatelessWidget {
-  const BorderContainer({
+class _SearchWidget extends StatelessWidget {
+  const _SearchWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final i10n = AppLocalizations.of(context)!;
+    return SearchAnchor(
+        builder: (BuildContext context, SearchController controller) {
+      return SearchBar(
+        elevation: WidgetStateProperty.all(0),
+        controller: controller,
+        onTap: () {
+          controller.openView();
+        },
+        onChanged: (_) {
+          controller.openView();
+        },
+        leading: const Icon(Icons.search),
+        hintText: i10n.searchDoctor,
+      );
+    }, suggestionsBuilder: (BuildContext context, SearchController controller) {
+      return List<ListTile>.generate(5, (int index) {
+        final String item = 'item $index';
+        return ListTile(
+          title: Text(item),
+          onTap: () {
+            controller.closeView(item);
+          },
+        );
+      });
+    });
+  }
+}
+
+class _BorderContainer extends StatelessWidget {
+  const _BorderContainer({
     super.key,
     required this.child,
     this.strokeWidth = 1,
