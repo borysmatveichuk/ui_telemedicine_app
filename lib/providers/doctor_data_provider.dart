@@ -11,7 +11,6 @@ final doctorRepositoryProvider = Provider<DoctorRepository>((ref) {
   return MockDoctorRepository();
 });
 
-//final doctorDataProvider = Provider<>
 class DoctorsData {
   final List<DoctorSpecializationAvailability> doctorSpecializationAvailability;
   final List<Doctor> doctors;
@@ -53,8 +52,6 @@ class DoctorsDataNotifier extends AutoDisposeAsyncNotifier<DoctorsData> {
 
   @override
   FutureOr<DoctorsData> build() async {
-    // fetchDoctorsData();
-    // return DoctorsData(doctorSpecializationAvailability: [], doctors: []);
     final doctorRepository = ref.watch(doctorRepositoryProvider);
 
     final results = await Future.wait([
